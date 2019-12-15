@@ -8,10 +8,8 @@ string suggester(int l, int u, int d, int s, int t)
 {
 	string str;
 
-	// all digits 
+	// all digits, lower case, uppercase and special characters 
 	string num = "0123456789";
-
-	// all lower case, uppercase and special characters 
 	string low_case = "abcdefghijklmnopqrstuvwxyz";
 	string up_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	string spl_char = "@#$_()!";
@@ -19,14 +17,16 @@ string suggester(int l, int u, int d, int s, int t)
 	// position at which place a character 
 	int pos = 0;
 
+	// out_of_range를 방지하기 위해 str 0번째에 난수 삽입
+
 	// generate random integer under 26 for indexing of a to z 
-	str.insert(0, 1, low_case[rand() % 26]);
+	str.insert(pos, 1, low_case[rand() % 26]);
 	for (int i = 1; i < l; i++) {
 		pos = rand() % str.length();
 		str.insert(pos, 1, low_case[rand() % 26]);
 	}
 
-	// add it upper case char
+	// add upper case char
 	for (int i = 0; i < u; i++) {
 		pos = rand() % str.length();
 		str.insert(pos, 1, up_case[rand() % 26]);
@@ -51,9 +51,9 @@ int main()
 {
 	string suggest;
 
-	srand(time(NULL));
+	int l = 0, u = 0, d = 0, s = 0, t = 0;
 
-	int l = 0, u = 0, d = 0, s = 0, t=0;
+	srand(time(NULL));
 
 	do{
 	cout << "Enter total length num: " << endl;
@@ -73,7 +73,6 @@ int main()
 
 	if((d + l + u + s) != t)
 		cout << " Enter Again !! " << endl;
-
 	} while ((d+l+u+s) != t);
 
 	if ((d + l + u + s) == t) {
@@ -81,6 +80,5 @@ int main()
 		suggest = suggester(l, u, d, s, t);
 		cout << suggest << endl;
 	}
-	
 	return 0;
 }
